@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApplication2.ServicesLayer;
 
 namespace WebApplication2.Controllers
 {
@@ -12,10 +13,12 @@ namespace WebApplication2.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ICalculationService _calculationService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ICalculationService calculationService)
         {
             _logger = logger;
+            _calculationService = calculationService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -33,20 +36,7 @@ namespace WebApplication2.Controllers
         [HttpPost("PostSumNumbers")]
         public int Post(int number1, int number2)
         {
-            return number1 + number2;
+            return _calculationService.SumTwoNumbers(number1, number2);
         }
-
-        [HttpGet("GetOneNumber")]
-        public double GetOneNumber([FromQuery] int number)
-        {
-            return Math.Pow(number, 2);
-        }
-
-        [HttpGet("GetOneNumberAgain/{number}")]
-        public double GetOneNumberAgain(int number)
-        {
-            return Math.Pow(number, 2);
-        }
-
     }
 }
