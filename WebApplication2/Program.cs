@@ -14,8 +14,6 @@ builder.Services.AddTransient<IQuestionAnswerSave, QuestionAnswerSave>();
 builder.Services.AddTransient<IQuestionAnswerRight, QuestionAnswerRight>();
 builder.Services.AddTransient<ILogicService, LogicService>();
 builder.Services.AddTransient<IDataService, DataService>();
-builder.Services.AddTransient<ILogicCompareService, LogicCompareService>();
-builder.Services.AddTransient<IDataServiceResult, DataServiceResult>();
 
 var app = builder.Build();
 
