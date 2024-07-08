@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IQuestionAnswerSave, QuestionAnswerSave>();
-builder.Services.AddTransient<IQuestionAnswerRight, QuestionAnswerRight>();
+builder.Services.AddSingleton<IQuestionAnswerSave, QuestionAnswerSave>();
+builder.Services.AddSingleton<IQuestionAnswerRight, QuestionAnswerRight>();
 builder.Services.AddTransient<ILogicService, LogicService>();
 builder.Services.AddTransient<IDataService, DataService>();
 
