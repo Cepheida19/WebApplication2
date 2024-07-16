@@ -1,13 +1,16 @@
 ﻿using WebApplication2.DALLayer;
+using WebApplication2.DALLayer.Models;
 
 namespace WebApplication2.ServicesLayer
 {
     public class LogicService : ILogicService
     {
         private readonly IDataService _dataService;
+        private readonly IUserAnswersRepository _userAnswersRepository;
 
-        public LogicService(IDataService dataService) {
+        public LogicService(IDataService dataService, IUserAnswersRepository userAnswersRepository) {
             _dataService = dataService;
+            _userAnswersRepository = userAnswersRepository;
         }
         public void ProcessData(int number, string reply) {
             _dataService.SaveData(number, reply);
@@ -30,6 +33,10 @@ namespace WebApplication2.ServicesLayer
             }
 
             return result;
+        }
+        public void SaveAnswerToDatabase(UserAnswers userAnswers)
+        {
+            _userAnswersRepository.AddAnswer(userAnswers);
         }
     }
 }
