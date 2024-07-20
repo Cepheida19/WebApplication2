@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication2.DALLayer;
 using WebApplication2.ServicesLayer;
 
 namespace WebApplication2.Controllers
@@ -9,12 +8,10 @@ namespace WebApplication2.Controllers
     public class SendReplyController : ControllerBase
     {
         private readonly ILogicService _logicService;
-        private readonly IDataService _dataService;
 
-        public SendReplyController(ILogicService logicService, IDataService dataService)
+        public SendReplyController(ILogicService logicService)
         {
             _logicService = logicService;
-            _dataService = dataService;
         }
 
         [HttpPost("PostSendReply")]
