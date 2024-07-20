@@ -12,6 +12,10 @@ namespace WebApplication2.DALLayer
             _context.UserAnswersTable.Add(userAnswers);
             _context.SaveChanges();
         }
-       
+        public IEnumerable<UserAnswers> GetAllUserAnswers()
+        {
+            return _context.UserAnswersTable.ToList();
+        }
+
     }
 }

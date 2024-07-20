@@ -23,10 +23,11 @@ namespace WebApplication2.Controllers
             _logicService.ProcessData(number, reply);
             return "Ok";
         }
-        [HttpGet("GetResult")]
-        public int Get()
+
+        [HttpGet("GetDatabaseResult")]
+        public int GetDatabaseResult()
         {
-            return _logicService.CompareAnswers(_dataService.GetCorrectAnswers(), _dataService.GetReceivedAnswers());
+            return _logicService.CompareDatabaseAnswers();
         }
     }
 }

@@ -1,36 +1,34 @@
 ﻿using WebApplication2.DALLayer.Models;
-using WebApplication2.DataBase;
 
 namespace WebApplication2.DALLayer
 {
     public class DataService : IDataService
     {
-        private readonly IQuestionAnswerRight _questionAnswerRight;
-        private readonly IQuestionAnswerSave _questionAnswerSave;
         private readonly IUserAnswersRepository _userAnswersRepository;
+        private readonly IRightAnswersRepository _rightAnswersRepository;
 
-        public DataService(IQuestionAnswerRight questionAnswerRight, IQuestionAnswerSave questionAnswerSave, IUserAnswersRepository userAnswersRepository)
+        public DataService(IUserAnswersRepository userAnswersRepository, IRightAnswersRepository rightAnswersRepository)
         {
-            _questionAnswerRight = questionAnswerRight;
-            _questionAnswerSave = questionAnswerSave;
             _userAnswersRepository = userAnswersRepository;
-        }
+            _rightAnswersRepository = rightAnswersRepository;
+    }
         public void SaveData(int number, string reply)
         {
-            //if (!_questionAnswerSave.QuestionsAnswers.ContainsKey(number)) {
-            //    _questionAnswerSave.QuestionsAnswers.Add(number, reply);
-            //}
             var answer = new UserAnswers { Id = number, Answers = reply };
-            _userAnswersRepository.AddAnswer(answer);
-        }
-        public Dictionary<int, string> GetCorrectAnswers()
-        {
-            return _questionAnswerRight.CorrectAnswers;
-        }
+            //var answerRigth = new RightAnswers { Id = number, Answers = reply };
 
-        public Dictionary<int, string> GetReceivedAnswers()
+            _userAnswersRepository.AddAnswer(answer);
+            //_userAnswersRepository.AddRightAnswer(answerRigth);
+        }
+ 
+        public Dictionary<int, string> GetCorrectAnswersFromDatabase()
         {
-            return _questionAnswerSave.QuestionsAnswers;
+            var rightAnswers = _rightAnswersRepository.GetAllRightAnswers();
+            return rightAnswers.ToDictionary(ra => ra.Id, ra => ra.Answers);
+        }
+        public IEnumerable<UserAnswers> GetUserAnswers()
+        {
+            return _userAnswersRepository.GetAllUserAnswers();
         }
     }
 }

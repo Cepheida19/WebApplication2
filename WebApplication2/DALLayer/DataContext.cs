@@ -9,5 +9,6 @@ namespace WebApplication2.DALLayer
             Database.EnsureCreated();
         }
         public DbSet<UserAnswers> UserAnswersTable { get; set; }
+        public DbSet<RightAnswers> RightAnswersTable { get; set; }
     }
 }
