@@ -5,18 +5,24 @@ namespace WebApplication2.ServicesLayer
 {
     public class LogicService : ILogicService
     {
-        private readonly IDataService _dataService;
         private readonly IUserAnswersRepository _userAnswersRepository;
         private readonly IRightAnswersRepository _rightAnswersRepository;
 
-        public LogicService(IDataService dataService, IUserAnswersRepository userAnswersRepository, IRightAnswersRepository rightAnswersRepository) {
-            _dataService = dataService;
+        public LogicService(IUserAnswersRepository userAnswersRepository, IRightAnswersRepository rightAnswersRepository) {
             _userAnswersRepository = userAnswersRepository;
             _rightAnswersRepository = rightAnswersRepository;
         }
-        public void ProcessData(int number, string reply) {
-            _dataService.SaveData(number, reply);
+        public void ProcessData(int number, string reply)
+        {
+            var answer = new UserAnswers { Id = number, Answers = reply };
+            //var answerRigth = new RightAnswers { Id = number, Answers = reply };
+
+            _userAnswersRepository.AddAnswer(answer);
+            //_userAnswersRepository.AddRightAnswer(answerRigth);
         }
+
+
+
         public int CompareAnswers(Dictionary<int, string> correctAnswers, Dictionary<int, string> receivedAnswers)
         {
             int count = 0;
@@ -49,7 +55,7 @@ namespace WebApplication2.ServicesLayer
             var correctAnswers = _rightAnswersRepository.GetAllRightAnswers()
                 .ToDictionary(ra => ra.Id, ra => ra.Answers);
 
-            var userAnswers = _dataService.GetUserAnswers()
+            var userAnswers = _userAnswersRepository.GetAllUserAnswers()
                 .ToDictionary(ua => ua.Id, ua => ua.Answers);
 
             return CompareAnswers(correctAnswers, userAnswers);

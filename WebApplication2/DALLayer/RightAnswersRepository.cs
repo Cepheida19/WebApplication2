@@ -13,7 +13,7 @@ namespace WebApplication2.DALLayer
 
         public IEnumerable<RightAnswers> GetAllRightAnswers()
         {
-            return _context.RightAnswersTable.ToList();
+            return _context.RightAnswersTable;
         }
     }
 }

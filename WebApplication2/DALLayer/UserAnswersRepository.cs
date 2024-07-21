@@ -9,12 +9,14 @@ namespace WebApplication2.DALLayer
             _context = context;
         }
         public void AddAnswer(UserAnswers userAnswers) {
-            _context.UserAnswersTable.Add(userAnswers);
+            if (!_context.UserAnswersTable.Contains(userAnswers)) {
+                _context.UserAnswersTable.Add(userAnswers);
+            }
             _context.SaveChanges();
         }
         public IEnumerable<UserAnswers> GetAllUserAnswers()
         {
-            return _context.UserAnswersTable.ToList();
+            return _context.UserAnswersTable;
         }
 
     }

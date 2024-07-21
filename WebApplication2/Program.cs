@@ -11,7 +11,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILogicService, LogicService>();
-builder.Services.AddTransient<IDataService, DataService>();
 builder.Services.AddScoped<IUserAnswersRepository, UserAnswersRepository>();
 builder.Services.AddScoped<IRightAnswersRepository, RightAnswersRepository>();
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql("Host=localhost;Port=5432;Database=usersdb;Username=postgres;Password=123"));
