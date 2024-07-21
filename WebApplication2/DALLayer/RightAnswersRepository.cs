@@ -11,7 +11,7 @@ namespace WebApplication2.DALLayer
             _context = context;
         }
 
-        public IEnumerable<RightAnswers> GetAllRightAnswers()
+        public async Task<IEnumerable<RightAnswers>> GetAllRightAnswers()
         {
             return _context.RightAnswersTable;
         }

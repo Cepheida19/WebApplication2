@@ -12,12 +12,12 @@ namespace WebApplication2.ServicesLayer
             _userAnswersRepository = userAnswersRepository;
             _rightAnswersRepository = rightAnswersRepository;
         }
-        public void ProcessData(int number, string reply)
+        public async Task ProcessData(int number, string reply)
         {
             var answer = new UserAnswers { Id = number, Answers = reply };
             //var answerRigth = new RightAnswers { Id = number, Answers = reply };
 
-            _userAnswersRepository.AddAnswer(answer);
+            await _userAnswersRepository.AddAnswer(answer);
             //_userAnswersRepository.AddRightAnswer(answerRigth);
         }
 
@@ -42,20 +42,20 @@ namespace WebApplication2.ServicesLayer
 
             return result;
         }
-        public void SaveAnswerToDatabase(UserAnswers userAnswers)
+        public async Task SaveAnswerToDatabase(UserAnswers userAnswers)
         {
-            _userAnswersRepository.AddAnswer(userAnswers);
+            await _userAnswersRepository.AddAnswer(userAnswers);
         }
-        public void SaveRightAnswerToDatabase(RightAnswers rightAnswers)
+        public async Task SaveRightAnswerToDatabase(RightAnswers rightAnswers)
         {
-            //_userAnswersRepository.AddRightAnswer(rightAnswers);
+            //await _userAnswersRepository.AddRightAnswer(rightAnswers);
         }
-        public int CompareDatabaseAnswers()
+        public async Task<int> CompareDatabaseAnswers()
         {
-            var correctAnswers = _rightAnswersRepository.GetAllRightAnswers()
+            var correctAnswers = (await _rightAnswersRepository.GetAllRightAnswers())
                 .ToDictionary(ra => ra.Id, ra => ra.Answers);
 
-            var userAnswers = _userAnswersRepository.GetAllUserAnswers()
+            var userAnswers = (await _userAnswersRepository.GetAllUserAnswers())
                 .ToDictionary(ua => ua.Id, ua => ua.Answers);
 
             return CompareAnswers(correctAnswers, userAnswers);

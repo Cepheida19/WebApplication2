@@ -15,16 +15,16 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost("PostSendReply")]
-        public string Post(int number, string reply)
+        public async Task<string> Post(int number, string reply)
         {
-            _logicService.ProcessData(number, reply);
+            await _logicService.ProcessData(number, reply);
             return "Ok";
         }
 
         [HttpGet("GetDatabaseResult")]
-        public int GetDatabaseResult()
+        public async Task<int> GetDatabaseResult()
         {
-            return _logicService.CompareDatabaseAnswers();
+            return await _logicService.CompareDatabaseAnswers();
         }
     }
 }

@@ -8,16 +8,15 @@ namespace WebApplication2.DALLayer
         public UserAnswersRepository(DataContext context) {
             _context = context;
         }
-        public void AddAnswer(UserAnswers userAnswers) {
+        public async Task AddAnswer(UserAnswers userAnswers) {
             if (!_context.UserAnswersTable.Contains(userAnswers)) {
                 _context.UserAnswersTable.Add(userAnswers);
             }
             _context.SaveChanges();
         }
-        public IEnumerable<UserAnswers> GetAllUserAnswers()
+        public async Task<IEnumerable<UserAnswers>> GetAllUserAnswers()
         {
             return _context.UserAnswersTable;
         }
-
     }
 }

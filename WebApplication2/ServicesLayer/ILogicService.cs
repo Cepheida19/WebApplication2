@@ -4,9 +4,9 @@ namespace WebApplication2.ServicesLayer
 {
     public interface ILogicService
     {
-        void ProcessData(int number, string reply);
+        Task ProcessData(int number, string reply);
         int CompareAnswers(Dictionary<int, string> correctAnswers, Dictionary<int, string> receivedAnswers);
-        void SaveAnswerToDatabase(UserAnswers userAnswers);
-        int CompareDatabaseAnswers();
+        Task SaveAnswerToDatabase(UserAnswers userAnswers);
+        Task<int> CompareDatabaseAnswers();
     }
 }
